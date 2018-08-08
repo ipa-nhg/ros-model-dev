@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="ros" version="12.0.0.2017041100">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:properties="http://www.eclipse.org/sirius/properties/1.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="ros" version="12.0.0.2017041100">
   <ownedViewpoints name="component" modelFileExtension="ros" icon="/de.fraunhofer.ipa.ros.sirius/icons/component.gif">
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="Artifact diagram" domainClass="ros::Artifact" enablePopupBars="true">
       <metamodel href="../../de.fraunhofer.ipa.ros/model/ros.ecore#/"/>
@@ -115,10 +115,30 @@
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="ros::Parameter" referenceName="parameter">
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="NewParameter"/>
-                </subModelOperations>
+              <firstModelOperations xsi:type="properties:DialogModelOperation" titleExpression="Parameter Definition">
+                <buttons labelExpression="Cancel" closeDialogOnClick="true" rollbackChangesOnClose="true">
+                  <initialOperation/>
+                </buttons>
+                <buttons labelExpression="OK" default="true" closeDialogOnClick="true">
+                  <initialOperation>
+                    <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                      <subModelOperations xsi:type="tool_1:CreateInstance" typeName="ros::Parameter" referenceName="parameter">
+                        <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="NewParameter"/>
+                      </subModelOperations>
+                    </firstModelOperations>
+                  </initialOperation>
+                </buttons>
+                <page name="Parameter" labelExpression="Parameter: " groups="//@ownedViewpoints[name='component']/@ownedRepresentations[name='Artifact%20diagram']/@defaultLayer/@toolSections.0/@ownedTools[name='Add%20ROS%20Parameter']/@initialOperation/@firstModelOperations/@groups.0"/>
+                <groups name="semanParameterDef" labelExpression="Parameter" domainClass="ros::Parameter" semanticCandidateExpression="feature:eAllContents">
+                  <controls xsi:type="properties:TextDescription" name="name" labelExpression="Name: " helpExpression="Parameter name" valueExpression="feature:name">
+                    <initialOperation/>
+                  </controls>
+                  <controls xsi:type="properties:SelectDescription" name="type" labelExpression="Type: ">
+                    <initialOperation>
+                      <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self"/>
+                    </initialOperation>
+                  </controls>
+                </groups>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
