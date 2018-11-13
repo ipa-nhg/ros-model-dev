@@ -50,14 +50,14 @@ de.fraunhofer.ipa.ros.xtext.ui
 
 ```
 4. Start a new eclipse application by either
-* de.fraunhofer.ipa.ros.sirius > plugin.xml and click *Launch an Eclipse application* or 
+* de.fraunhofer.ipa.ros.sirius > plugin.xml and *click* *Launch an Eclipse application* or 
 * *right click* de.fraunhofer.ipa.ros.sirius and *click* on Run As > Eclipse Application
 
 5. Import the common communication objects project to the workbench of your application:
 ```
 de.fraunhofer.ipa.ros.communication.objects
 ```
-3. Create a new ROS model project (menu File > New > Other > ROS Model project)
+6. Create a new ROS model project (Menu > File > New > Other > ROS Model project)
 
 #### I. Create a ROS Model project <a id="RosArtifactProject"/>
 
@@ -65,7 +65,7 @@ de.fraunhofer.ipa.ros.communication.objects
 
 2. Once the project is created, open the *representations.aird* file and add a new representation for your Ros artifact
 
-Use the palette toolbar to add a new node, to configure your model use also the *Properties* view (if it is disabled go to *Window* > *Show view* > *Other* and choose *Properties*).
+3. Use the palette toolbar to add a new node, to configure your model use also the *Properties* view (if it is disabled go to *Window* > *Show view* > *Other* and choose *Properties*).
 
 #### II. Create a Component Interface for your ROS Model <a id="RosSRGatewayProject"/>
 
@@ -87,7 +87,7 @@ Use the palette toolbar to add a new node, to configure your model use also the 
 
 4. Open the *represenation.aird* file with the Aird Editor and enable the representation of ROSSystem models
 
- Use the *Properties* view to configure the system
+5. Use the *Properties* view to configure the system
  
  
 #### IV. A motivating Example <a id="Examples"/>
