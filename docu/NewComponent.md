@@ -1,17 +1,16 @@
 ## Create a component from a node
 
-Select the components folder of your package and choose a name for your component
+Please be sure that the tool is installed and your workspace setup, see the [installation guide](https://github.com/ipa-nhg/ros-model#2--installation-requirements) for further details.
+
+To create a new component you have to press the button "Add new Component from Ros node"
 
 ![alt text](images/add_new_component.png)
 
-Give a name for the component and (if needed) the namespace
+A dialog will be open and ask you to select a folder to contain your new model (we recommend the "components" one) and to give a name to your component.
 
-open the browser and choose a valid .ros file as input to be referenced (under the folder rosnodes)
+The next menu will ask you to give to your component a name and a namespace (optional). The last information needed is the Ros node model related to your component to be references (.ros file).
 
 Your component will be automatically created, in case you want to modify the default remaps of the interfaces you can edit the file using the EMF editor
 
-![alt text](images/modify_component.png)
+![](images/modify_component.png)
 
-(for SeRoNet )
-
-in the src-gen folder the rosinterfacespool file will be automatically generated
