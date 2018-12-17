@@ -21,11 +21,12 @@ For all the steps graphical editors and wizards are available to guide the user.
 
 The description of a ROS system is divided into 3 metamodels:
 
-1) **ROS Metamodel**: A model that encapsule all the ROS basic concepts: filesystem level, computational graph and deployment mechanisms. This model is completed with a Xtext grammar to enforce the use of standard and existing ROS mesages and assurance the use of ROS naming conventions. 
+-**ROS Metamodel**: A model that encapsule all the ROS basic concepts: filesystem level, computational graph and deployment mechanisms. This model is completed with a Xtext grammar to enforce the use of standard and existing ROS mesages and assurance the use of ROS naming conventions. 
 
-2) **Component Interface Metamodel**: Adaptation of the concept of Component Interface of the OMG specification standard [Deployment and Configuration of Component-based Distributed Applications](https://www.omg.org/spec/DEPL/About-DEPL/) from a ROS node. This concept enables the use of the same model to describe monolithic ROS nodes and large ROS systems and 1) simplifies the deployment process of ROS systems (by composing sub-systems) and 2) facilitates the interconnection of a ROS application with other component-based architecture frameworks.
+-**Component Interface Metamodel**: Adaptation of the concept of Component Interface of the OMG specification standard [Deployment and Configuration of Component-based Distributed Applications](https://www.omg.org/spec/DEPL/About-DEPL/) from a ROS node. This concept enables the use of the same model to describe monolithic ROS nodes and large ROS systems and 1) simplifies the deployment process of ROS systems (by composing sub-systems) and 2) facilitates the interconnection of a ROS application with other component-based architecture frameworks.
 
-3) **System Metamodel**: This metamodel allow the definition of a System (as a composition of Component Interfaces) and the conections between them. The tool validates at-design time the connections by evaluating 1) the no disparity of communication objects (messages or services) and 2) the no disparity of topics or services names.
+
+-**System Metamodel**: This metamodel allow the definition of a System (as a composition of Component Interfaces) and the conections between them. The tool validates at-design time the connections by evaluating 1) the no disparity of communication objects (messages or services) and 2) the no disparity of topics or services names.
 
 
 ## Installation and setup requirements <a id="2--installation-requirements"/>
