@@ -80,6 +80,10 @@ public class RossystemAdapterFactory extends AdapterFactoryImpl {
 				return createServiceConnectionAdapter();
 			}
 			@Override
+			public Adapter caseNameSpacedComponent(NameSpacedComponent object) {
+				return createNameSpacedComponentAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -138,6 +142,20 @@ public class RossystemAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createServiceConnectionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link rossystem.NameSpacedComponent <em>Name Spaced Component</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see rossystem.NameSpacedComponent
+	 * @generated
+	 */
+	public Adapter createNameSpacedComponentAdapter() {
 		return null;
 	}
 

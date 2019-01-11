@@ -18,7 +18,7 @@ class RosSystemFormatter extends AbstractFormatter2 {
 	@Inject extension RosSystemGrammarAccess
 
 	def dispatch void format(RosSystem rosSystem, extension IFormattableDocument document) {
-		for (TopicConnection topicConnection : rosSystem.getTopicConnections()) {
+		/**for (TopicConnection topicConnection : rosSystem.getTopicConnections()) {
 			if( topicConnection.fromTopic.name.equalsIgnoreCase(topicConnection.toTopic.name)){
 					topicConnection.format;
 				
@@ -29,7 +29,7 @@ class RosSystemFormatter extends AbstractFormatter2 {
 		}
 		for (ServiceConnection serviceConnection : rosSystem.getServiceConnections()) {
 			serviceConnection.format;
-		}
+		}**/
 	}
 	
 }

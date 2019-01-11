@@ -9,15 +9,11 @@ ComponentInterface returns ComponentInterface:
 	'ComponentInterface'
 	'{'
 		('name' name=EString)?
-		('NameSpace' namespace=Namespace)?
 		('RosPublishers' '{' rospublisher+=RosPublisher ( "," rospublisher+=RosPublisher)* '}' )?
 		('RosSubscribers' '{' rossubscriber+=RosSubscriber ( "," rossubscriber+=RosSubscriber)* '}' )?
 		('RosSrvServers' '{' rosserviceserver+=RosServiceServer ( "," rosserviceserver+=RosServiceServer)* '}' )?
 		('RosSrvClients' '{' rosserviceclient+=RosServiceClient ( "," rosserviceclient+=RosServiceClient)* '}' )?
 	'}';
-
-Namespace returns ros::Namespace:
-	GlobalNamespace | RelativeNamespace_Impl | PrivateNamespace;
 
 
 GraphName returns ros::GraphName:
@@ -59,26 +55,6 @@ RosServiceClient returns RosServiceClient:
 		'RefClient' srvclient=[ros::ServiceClient|EString]
 	'}';
 
-GlobalNamespace returns ros::GlobalNamespace:
-	{ros::GlobalNamespace}
-	'GlobalNamespace'
-	'{'
-		('parts' '{' parts+=EString ( "," parts+=EString)* '}' )?
-	'}';
-
-RelativeNamespace_Impl returns ros::RelativeNamespace:
-	{ros::RelativeNamespace}
-	'RelativeNamespace'
-	'{'
-		('parts' '{' parts+=EString ( "," parts+=EString)* '}' )?
-	'}';
-
-PrivateNamespace returns ros::PrivateNamespace:
-	{ros::PrivateNamespace}
-	'PrivateNamespace'
-	'{'
-		('parts' '{' parts+=EString ( "," parts+=EString)* '}' )?
-	'}';
 
 EString returns ecore::EString:
 	STRING | ID;

@@ -141,6 +141,29 @@ public class RossystemItemProviderAdapterFactory extends RossystemAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link rossystem.NameSpacedComponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected NameSpacedComponentItemProvider nameSpacedComponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link rossystem.NameSpacedComponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createNameSpacedComponentAdapter() {
+		if (nameSpacedComponentItemProvider == null) {
+			nameSpacedComponentItemProvider = new NameSpacedComponentItemProvider(this);
+		}
+
+		return nameSpacedComponentItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -242,6 +265,7 @@ public class RossystemItemProviderAdapterFactory extends RossystemAdapterFactory
 		if (rosSystemItemProvider != null) rosSystemItemProvider.dispose();
 		if (topicConnectionItemProvider != null) topicConnectionItemProvider.dispose();
 		if (serviceConnectionItemProvider != null) serviceConnectionItemProvider.dispose();
+		if (nameSpacedComponentItemProvider != null) nameSpacedComponentItemProvider.dispose();
 	}
 
 }

@@ -23,6 +23,7 @@ import componentInterface.RosPublisher
 import componentInterface.RosSubscriber
 import componentInterface.RosServiceServer
 import componentInterface.RosServiceClient
+import rossystem.NameSpacedComponent
 
 class CustomOutputProvider implements IOutputConfigurationProvider {
 	public final static String CM_CONFIGURATION = "CM_CONFIGURATION"
@@ -90,10 +91,10 @@ class RosSystemGenerator extends AbstractGenerator {
 	def compile_tolaunch(RosSystem system) '''«init()»
 <?xml version="1.0"?>
 <launch>
-	«FOR component:system.rosComponent»
-	<node pkg="«component.compile_pkg»" type="«component.compile_art»«init()»" name="«IF component.hasNS»«component.get_ns»_«ENDIF»«component.compile_art»"«IF component.hasNS» ns="«component.get_ns»"«ENDIF» cwd="node" respawn="false" output="screen">«init()»
-		«FOR rosPublisher:component.rospublisher»
-			«IF component.hasNS»
+	«FOR component:system.rosComponents»
+	<node pkg="«component.rosComponent.compile_pkg»" type="«component.rosComponent.compile_art»«init()»" name="«IF component.rosComponent.hasNS»«component.get_ns»_«ENDIF»«component.rosComponent.compile_art»"«IF component.rosComponent.hasNS» ns="«component.get_ns»"«ENDIF» cwd="node" respawn="false" output="screen">«init()»
+		«FOR rosPublisher:component.rosComponent.rospublisher»
+			«IF component.rosComponent.hasNS»
 				«IF rosPublisher.name.contains(component.get_ns)»
 				«ELSEIF rosPublisher.name.equals(rosPublisher.publisher.compile_topic_name()) »
 				«ELSEIF !rosPublisher.name.contains(component.get_ns)»
@@ -106,8 +107,8 @@ class RosSystemGenerator extends AbstractGenerator {
 			<remap from="«rosPublisher.publisher.compile_topic_name()»" to="«rosPublisher.name»" />
 			«ENDIF»
 		«ENDFOR»
-		«FOR rosSubscriber:component.rossubscriber»
-			«IF component.hasNS»
+		«FOR rosSubscriber:component.rosComponent.rossubscriber»
+			«IF component.rosComponent.hasNS»
 				«IF rosSubscriber.name.contains(component.get_ns)»
 				«ELSEIF rosSubscriber.name.equals(rosSubscriber.subscriber.compile_topic_name()) »
 				«ELSEIF !rosSubscriber.name.contains(component.get_ns)»
@@ -120,8 +121,8 @@ class RosSystemGenerator extends AbstractGenerator {
 			<remap from="«rosSubscriber.subscriber.compile_topic_name()»" to="«rosSubscriber.name»" />
 			«ENDIF»
 		«ENDFOR»
-		«FOR rosServiceServer:component.rosserviceserver»
-			«IF component.hasNS»
+		«FOR rosServiceServer:component.rosComponent.rosserviceserver»
+			«IF component.rosComponent.hasNS»
 				«IF rosServiceServer.name.contains(component.get_ns)»
 				«ELSEIF rosServiceServer.name.equals(rosServiceServer.srvserver.compile_service_name()) »
 				«ELSEIF !rosServiceServer.name.contains(component.get_ns)»
@@ -134,8 +135,8 @@ class RosSystemGenerator extends AbstractGenerator {
 			<remap from="«rosServiceServer.srvserver.compile_service_name()»" to="«rosServiceServer.name»" />
 			«ENDIF»
 		«ENDFOR»
-		«FOR rosServiceClient:component.rosserviceclient»
-			«IF component.hasNS»
+		«FOR rosServiceClient:component.rosComponent.rosserviceclient»
+			«IF component.rosComponent.hasNS»
 				«IF rosServiceClient.name.contains(component.get_ns)»
 				«ELSEIF rosServiceClient.name.equals(rosServiceClient.srvclient.compile_service_name()) »
 				«ELSEIF !rosServiceClient.name.contains(component.get_ns)»
@@ -168,11 +169,11 @@ def compile_toComponentInterface(RosSystem system){
 	svrc = new ArrayList()
 
 		
-	for (component: system.rosComponent){
-		for ( pub:component.rospublisher){pubs.add(pub)	}
-		for ( sub:component.rossubscriber){subs.add(sub)}
-		for ( srv:component.rosserviceserver){svrs.add(srv)}
-		for ( cl: component.rosserviceclient){svrc.add(cl)}
+	for (component: system.rosComponents){
+		for ( pub:component.rosComponent.rospublisher){pubs.add(pub)	}
+		for ( sub:component.rosComponent.rossubscriber){subs.add(sub)}
+		for ( srv:component.rosComponent.rosserviceserver){svrs.add(srv)}
+		for ( cl: component.rosComponent.rosserviceclient){svrc.add(cl)}
 	}
 	count_pub = pubs.length
 	count_sub = subs.length
@@ -227,8 +228,8 @@ def boolean hasNS(ComponentInterface component){
 		return false
 	}
 }
-def String get_ns(ComponentInterface component){
-	return component.namespace.parts.get(0).replaceFirst("/","");
+def String get_ns(NameSpacedComponent component){
+	return component.nameSpace.replaceFirst("/","");
 }
 
 def compile_pkg(ComponentInterface component) 

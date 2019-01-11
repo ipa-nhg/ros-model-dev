@@ -9,8 +9,6 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
 
-import ros.NamespacedElement;
-
 /**
  * <!-- begin-user-doc -->
  * The <b>Switch</b> for the model's inheritance hierarchy.
@@ -71,7 +69,6 @@ public class ComponentInterfaceSwitch<T> extends Switch<T> {
 			case ComponentInterfacePackage.COMPONENT_INTERFACE: {
 				ComponentInterface componentInterface = (ComponentInterface)theEObject;
 				T result = caseComponentInterface(componentInterface);
-				if (result == null) result = caseNamespacedElement(componentInterface);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -175,21 +172,6 @@ public class ComponentInterfaceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseRosServiceClient(RosServiceClient object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Namespaced Element</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Namespaced Element</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseNamespacedElement(NamespacedElement object) {
 		return null;
 	}
 

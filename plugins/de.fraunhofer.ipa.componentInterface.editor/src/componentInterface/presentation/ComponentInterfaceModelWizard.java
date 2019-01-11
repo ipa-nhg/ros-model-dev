@@ -71,14 +71,14 @@ import componentInterface.ComponentInterfacePackage;
  * This is a simple wizard for creating a new model file.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
- * @generated
+ * @generated NOT
  */
 public class ComponentInterfaceModelWizard extends Wizard implements INewWizard {
 	/**
 	 * The supported extensions for created files.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public static final List<String> FILE_EXTENSIONS =
 		Collections.unmodifiableList(Arrays.asList(ComponentInterfaceEditorPlugin.INSTANCE.getString("_UI_ComponentInterfaceEditorFilenameExtensions").split("\\s*,\\s*")));
@@ -87,7 +87,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 	 * A formatted list of supported file extensions, suitable for display.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public static final String FORMATTED_FILE_EXTENSIONS =
 		ComponentInterfaceEditorPlugin.INSTANCE.getString("_UI_ComponentInterfaceEditorFilenameExtensions").replaceAll("\\s*,\\s*", ", ");
@@ -96,7 +96,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 	 * This caches an instance of the model package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected ComponentInterfacePackage componentInterfacePackage = ComponentInterfacePackage.eINSTANCE;
 
@@ -104,7 +104,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 	 * This caches an instance of the model factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected ComponentInterfaceFactory componentInterfaceFactory = componentInterfacePackage.getComponentInterfaceFactory();
 
@@ -112,7 +112,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 	 * This is the file creation page.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected ComponentInterfaceModelWizardNewFileCreationPage newFileCreationPage;
 	protected SelectinputFile getInputFileCreationPage;
@@ -129,7 +129,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 	 * Remember the selection during initialization for populating the default container.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected IStructuredSelection selection;
 
@@ -137,7 +137,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 	 * Remember the workbench during initialization.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected IWorkbench workbench;
 
@@ -145,7 +145,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 	 * Caches the names of the types that can be created as the root object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected List<String> initialObjectNames;
 
@@ -156,7 +156,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 	 * This just records the information.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.workbench = workbench;
@@ -169,7 +169,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 	 * Returns the names of the types that can be created as the root object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected Collection<String> getInitialObjectNames() {
 		if (initialObjectNames == null) {
@@ -202,7 +202,6 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 			modelFile = getModelFile();
 			final String modelName = newFileCreationPage.getFileName().replace(".componentinterface", "");
 			final String ComponentName = getNameandNamespaceCreationPage.getComponentInterfaceName();
-			final String ComponentNameSpace = getNameandNamespaceCreationPage.getComponentInterfaceNameSpace();
 			final String Inputpath = getInputFileCreationPage.getPath();
 
 			ResourceSet resourceSet = new ResourceSetImpl();
@@ -227,12 +226,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 							//}
 							StringBuilder model_output = new StringBuilder();
 							resource.getContents().clear();
-							if (ComponentNameSpace.isEmpty()) {
-								model_output.append("ComponentInterface { name '"+ComponentName+"' \n");
-							} else {
-								model_output.append("ComponentInterface { name '"+ComponentName+"' NameSpace RelativeNamespace {parts{ '"+ComponentNameSpace+"' } }\n");
-							}
-							
+							model_output.append("ComponentInterface { name '"+ComponentName+"' \n");
 							
 							Scanner in = new Scanner(new FileReader(Inputpath));
 							StringBuilder sb = new StringBuilder();
@@ -286,11 +280,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 								model_output.append("    RosPublishers{\n");
 								for(String pub:pubs) {
 									cout_pub--;
-									if (ComponentNameSpace.isEmpty()) {
-										model_output.append("        RosPublisher '/"+pub.replaceFirst("/", "")+"' { RefPublisher '"+pkg_name+"."+artifact_name+"."+node_name+"."+pub+"'}");
-									} else {
-										model_output.append("        RosPublisher '/"+ComponentNameSpace.replaceFirst("/", "")+"/"+pub.replaceFirst("/", "")+"' { RefPublisher '"+pkg_name+"."+artifact_name+"."+node_name+"."+pub+"'}");
-									}
+									model_output.append("        RosPublisher '/"+pub.replaceFirst("/", "")+"' { RefPublisher '"+pkg_name+"."+artifact_name+"."+node_name+"."+pub+"'}");
 									if (cout_pub > 0) {
 										model_output.append(",\n");
 									}
@@ -301,11 +291,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 								model_output.append("    RosSubscribers{\n");
 								for(String sub:subs) {
 									cout_subs--;
-									if (ComponentNameSpace.isEmpty()) {
-										model_output.append("        RosSubscriber '/"+sub.replaceFirst("/", "")+"' { RefSubscriber '"+pkg_name+"."+artifact_name+"."+node_name+"."+sub+"'}");
-									} else {
-										model_output.append("        RosSubscriber '/"+ComponentNameSpace.replaceFirst("/", "")+"/"+sub.replaceFirst("/", "")+"' { RefSubscriber '"+pkg_name+"."+artifact_name+"."+node_name+"."+sub+"'}");
-									}
+									model_output.append("        RosSubscriber '/"+sub.replaceFirst("/", "")+"' { RefSubscriber '"+pkg_name+"."+artifact_name+"."+node_name+"."+sub+"'}");
 									if (cout_subs > 0) {
 										model_output.append(",\n");
 									}
@@ -316,11 +302,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 								model_output.append("    RosSrvServers{\n");
 								for(String srvsr:srvser) {
 									cout_srvs--;
-									if (ComponentNameSpace.isEmpty()) {
-										model_output.append("        RosServiceServer '/"+srvsr.replaceFirst("/", "")+"' { RefServer '"+pkg_name+"."+artifact_name+"."+node_name+"."+srvsr+"'}");
-									} else {
-										model_output.append("        RosServiceServer '/"+ComponentNameSpace.replaceFirst("/", "")+"/"+srvsr.replaceFirst("/", "")+"' { RefServer '"+pkg_name+"."+artifact_name+"."+node_name+"."+srvsr+"'}");
-									}
+									model_output.append("        RosServiceServer '/"+srvsr.replaceFirst("/", "")+"' { RefServer '"+pkg_name+"."+artifact_name+"."+node_name+"."+srvsr+"'}");
 									if (cout_srvs > 0) {
 										model_output.append(",\n");
 									}
@@ -331,11 +313,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 								model_output.append("    RosSrvClients{\n");
 								for(String srvc:srvcl) {
 									cout_srvc--;
-									if (ComponentNameSpace.isEmpty()) {
-										model_output.append("        RosServiceClient '/"+srvc.replaceFirst("/", "")+"' { RefClient '"+pkg_name+"."+artifact_name+"."+node_name+"."+srvc+"'}");
-									} else {
-										model_output.append("        RosServiceClient '/"+ComponentNameSpace.replaceFirst("/", "")+"/"+srvc.replaceFirst("/", "")+"' { RefClient '"+pkg_name+"."+artifact_name+"."+node_name+"."+srvc+"'}");
-									}
+									model_output.append("        RosServiceClient '/"+srvc.replaceFirst("/", "")+"' { RefClient '"+pkg_name+"."+artifact_name+"."+node_name+"."+srvc+"'}");
 									if (cout_srvc > 0) {
 										model_output.append(",\n");
 									}
@@ -409,14 +387,14 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 	 * This is the one page of the wizard.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public class ComponentInterfaceModelWizardNewFileCreationPage extends WizardNewFileCreationPage {
 		/**
 		 * Pass in the selection.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated
+		 * @generated NOT
 		 */
 		public ComponentInterfaceModelWizardNewFileCreationPage(String pageId, IStructuredSelection selection) {
 			super(pageId, selection);
@@ -426,7 +404,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 		 * The framework calls this to see if the file is correct.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated
+		 * @generated NOT
 		 */
 		@Override
 		protected boolean validatePage() {
@@ -445,7 +423,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated
+		 * @generated NOT
 		 */
 		public IFile getModelFile() {
 			return ResourcesPlugin.getWorkspace().getRoot().getFile(getContainerFullPath().append(getFileName()));
@@ -482,26 +460,12 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 	                }
 	            }
 	        });
-	        Label label2 = new Label(container, SWT.NONE);
-	        label2.setText("ComponentInterface namespace");
-	        CINameSpace = new Text(container, SWT.BORDER | SWT.SINGLE);
-	        CINameSpace.setText("");
-	        CINameSpace.addKeyListener(new KeyListener() {
-	            public void keyPressed(KeyEvent e) {
-	            }
-	            public void keyReleased(KeyEvent e) {
-	                if (!CINameSpace.getText().isEmpty()) {
-	                    setPageComplete(true);
-	                }
-	            }
-
-	        });
 
 	        GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 			gd.grabExcessHorizontalSpace = true;
 			gd.horizontalAlignment = GridData.FILL;
 	        CIName.setLayoutData(gd);
-	        CINameSpace.setLayoutData(gd);
+	        //CINameSpace.setLayoutData(gd);
 	        
 	        // required to avoid an error in the system
 	        setControl(container);
@@ -510,10 +474,6 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 
 	    public String getComponentInterfaceName() {
 	        return CIName.getText();
-	    }
-	    
-	    public String getComponentInterfaceNameSpace() {
-	        return CINameSpace.getText();
 	    }
 
 	}
@@ -583,7 +543,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 	 * The framework calls this to create the contents of the wizard.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 		@Override
 	public void addPages() {
@@ -629,8 +589,8 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 		}
 		
 		getNameandNamespaceCreationPage = new ComponentInterfaceModelWizardNamNSCreationPage("Whatever3");
-		getNameandNamespaceCreationPage.setTitle("Set Name and Namespace to the ComponentInterface");
-		getNameandNamespaceCreationPage.setDescription("Set Name and Namespace to the ComponentInterface");
+		getNameandNamespaceCreationPage.setTitle("Set Name to the ComponentInterface");
+		getNameandNamespaceCreationPage.setDescription("Set Name to the ComponentInterface");
 		addPage(getNameandNamespaceCreationPage);
 
 		
@@ -644,7 +604,7 @@ public class ComponentInterfaceModelWizard extends Wizard implements INewWizard 
 	 * Get the file from the page.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public IFile getModelFile() {
 		return newFileCreationPage.getModelFile();

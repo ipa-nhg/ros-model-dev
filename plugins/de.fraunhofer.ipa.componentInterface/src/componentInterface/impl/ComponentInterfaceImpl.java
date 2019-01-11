@@ -11,6 +11,7 @@ import componentInterface.RosSubscriber;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -18,10 +19,10 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
-import ros.impl.NamespacedElementImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,11 +36,12 @@ import ros.impl.NamespacedElementImpl;
  *   <li>{@link componentInterface.impl.ComponentInterfaceImpl#getRossubscriber <em>Rossubscriber</em>}</li>
  *   <li>{@link componentInterface.impl.ComponentInterfaceImpl#getRosserviceserver <em>Rosserviceserver</em>}</li>
  *   <li>{@link componentInterface.impl.ComponentInterfaceImpl#getRosserviceclient <em>Rosserviceclient</em>}</li>
+ *   <li>{@link componentInterface.impl.ComponentInterfaceImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ComponentInterfaceImpl extends NamespacedElementImpl implements ComponentInterface {
+public class ComponentInterfaceImpl extends MinimalEObjectImpl.Container implements ComponentInterface {
 	/**
 	 * The cached value of the '{@link #getRospublisher() <em>Rospublisher</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -79,6 +81,26 @@ public class ComponentInterfaceImpl extends NamespacedElementImpl implements Com
 	 * @ordered
 	 */
 	protected EList<RosServiceClient> rosserviceclient;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -152,6 +174,27 @@ public class ComponentInterfaceImpl extends NamespacedElementImpl implements Com
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentInterfacePackage.COMPONENT_INTERFACE__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -183,6 +226,8 @@ public class ComponentInterfaceImpl extends NamespacedElementImpl implements Com
 				return getRosserviceserver();
 			case ComponentInterfacePackage.COMPONENT_INTERFACE__ROSSERVICECLIENT:
 				return getRosserviceclient();
+			case ComponentInterfacePackage.COMPONENT_INTERFACE__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -212,6 +257,9 @@ public class ComponentInterfaceImpl extends NamespacedElementImpl implements Com
 				getRosserviceclient().clear();
 				getRosserviceclient().addAll((Collection<? extends RosServiceClient>)newValue);
 				return;
+			case ComponentInterfacePackage.COMPONENT_INTERFACE__NAME:
+				setName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -236,6 +284,9 @@ public class ComponentInterfaceImpl extends NamespacedElementImpl implements Com
 			case ComponentInterfacePackage.COMPONENT_INTERFACE__ROSSERVICECLIENT:
 				getRosserviceclient().clear();
 				return;
+			case ComponentInterfacePackage.COMPONENT_INTERFACE__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -256,8 +307,26 @@ public class ComponentInterfaceImpl extends NamespacedElementImpl implements Com
 				return rosserviceserver != null && !rosserviceserver.isEmpty();
 			case ComponentInterfacePackage.COMPONENT_INTERFACE__ROSSERVICECLIENT:
 				return rosserviceclient != null && !rosserviceclient.isEmpty();
+			case ComponentInterfacePackage.COMPONENT_INTERFACE__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(')');
+		return result.toString();
 	}
 
 } //ComponentInterfaceImpl

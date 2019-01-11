@@ -17,7 +17,7 @@ class RosSystemValidator extends AbstractRosSystemValidator {
 	public static val NOT_MATCHED_NAME = 'notMatchedName'
 	public static val NOT_MATCHED_TYPE = 'notMatchedType'
 
-	@Check
+	/**@Check
 	def void checkTopicConnection(TopicConnection topicconnection){
 		if( !topicconnection.fromTopic.name.equalsIgnoreCase(topicconnection.toTopic.name)){
 			error("Names not matched", null, NOT_MATCHED_NAME)
@@ -37,6 +37,6 @@ class RosSystemValidator extends AbstractRosSystemValidator {
 			error("Services not matched", null, NOT_MATCHED_TYPE)
 			return
 		}
-	}
+	}**/
 	
 }

@@ -2,7 +2,6 @@
  */
 package rossystem;
 
-import componentInterface.ComponentInterface;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -19,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link rossystem.RosSystem#getTopicConnections <em>Topic Connections</em>}</li>
  *   <li>{@link rossystem.RosSystem#getServiceConnections <em>Service Connections</em>}</li>
  *   <li>{@link rossystem.RosSystem#getName <em>Name</em>}</li>
- *   <li>{@link rossystem.RosSystem#getRosComponent <em>Ros Component</em>}</li>
+ *   <li>{@link rossystem.RosSystem#getRosComponents <em>Ros Components</em>}</li>
  * </ul>
  *
  * @see rossystem.RossystemPackage#getRosSystem()
@@ -86,19 +85,19 @@ public interface RosSystem extends EObject {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Ros Component</b></em>' reference list.
-	 * The list contents are of type {@link componentInterface.ComponentInterface}.
+	 * Returns the value of the '<em><b>Ros Components</b></em>' containment reference list.
+	 * The list contents are of type {@link rossystem.NameSpacedComponent}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Ros Component</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Ros Components</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Ros Component</em>' reference list.
-	 * @see rossystem.RossystemPackage#getRosSystem_RosComponent()
-	 * @model
+	 * @return the value of the '<em>Ros Components</em>' containment reference list.
+	 * @see rossystem.RossystemPackage#getRosSystem_RosComponents()
+	 * @model containment="true"
 	 * @generated
 	 */
-	EList<ComponentInterface> getRosComponent();
+	EList<NameSpacedComponent> getRosComponents();
 
 } // RosSystem

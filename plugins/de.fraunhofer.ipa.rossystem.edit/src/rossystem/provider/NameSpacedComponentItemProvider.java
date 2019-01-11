@@ -11,8 +11,6 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -24,17 +22,16 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
-import rossystem.RosSystem;
-import rossystem.RossystemFactory;
+import rossystem.NameSpacedComponent;
 import rossystem.RossystemPackage;
 
 /**
- * This is the item provider adapter for a {@link rossystem.RosSystem} object.
+ * This is the item provider adapter for a {@link rossystem.NameSpacedComponent} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class RosSystemItemProvider 
+public class NameSpacedComponentItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -48,7 +45,7 @@ public class RosSystemItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RosSystemItemProvider(AdapterFactory adapterFactory) {
+	public NameSpacedComponentItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -63,26 +60,48 @@ public class RosSystemItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
-			addRosComponentsPropertyDescriptor(object);
+			addRosComponentPropertyDescriptor(object);
+			addNameSpacePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
+	 * This adds a property descriptor for the Ros Component feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addNamePropertyDescriptor(Object object) {
+	protected void addRosComponentPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_RosSystem_Name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_RosSystem_Name_feature", "_UI_RosSystem_type"),
-				 RossystemPackage.Literals.ROS_SYSTEM__NAME,
+				 getString("_UI_NameSpacedComponent_RosComponent_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_NameSpacedComponent_RosComponent_feature", "_UI_NameSpacedComponent_type"),
+				 RossystemPackage.Literals.NAME_SPACED_COMPONENT__ROS_COMPONENT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Name Space feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNameSpacePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_NameSpacedComponent_NameSpace_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_NameSpacedComponent_NameSpace_feature", "_UI_NameSpacedComponent_type"),
+				 RossystemPackage.Literals.NAME_SPACED_COMPONENT__NAME_SPACE,
 				 true,
 				 false,
 				 false,
@@ -92,67 +111,14 @@ public class RosSystemItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Ros Components feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addRosComponentsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_RosSystem_RosComponents_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_RosSystem_RosComponents_feature", "_UI_RosSystem_type"),
-				 RossystemPackage.Literals.ROS_SYSTEM__ROS_COMPONENTS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(RossystemPackage.Literals.ROS_SYSTEM__TOPIC_CONNECTIONS);
-			childrenFeatures.add(RossystemPackage.Literals.ROS_SYSTEM__SERVICE_CONNECTIONS);
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
-	}
-
-	/**
-	 * This returns RosSystem.gif.
+	 * This returns NameSpacedComponent.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/RosSystem"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/NameSpacedComponent"));
 	}
 
 	/**
@@ -163,10 +129,10 @@ public class RosSystemItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((RosSystem)object).getName();
+		String label = ((NameSpacedComponent)object).getNameSpace();
 		return label == null || label.length() == 0 ?
-			getString("_UI_RosSystem_type") :
-			getString("_UI_RosSystem_type") + " " + label;
+			getString("_UI_NameSpacedComponent_type") :
+			getString("_UI_NameSpacedComponent_type") + " " + label;
 	}
 	
 
@@ -181,13 +147,9 @@ public class RosSystemItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(RosSystem.class)) {
-			case RossystemPackage.ROS_SYSTEM__NAME:
+		switch (notification.getFeatureID(NameSpacedComponent.class)) {
+			case RossystemPackage.NAME_SPACED_COMPONENT__NAME_SPACE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case RossystemPackage.ROS_SYSTEM__TOPIC_CONNECTIONS:
-			case RossystemPackage.ROS_SYSTEM__SERVICE_CONNECTIONS:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -203,16 +165,6 @@ public class RosSystemItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(RossystemPackage.Literals.ROS_SYSTEM__TOPIC_CONNECTIONS,
-				 RossystemFactory.eINSTANCE.createTopicConnection()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(RossystemPackage.Literals.ROS_SYSTEM__SERVICE_CONNECTIONS,
-				 RossystemFactory.eINSTANCE.createServiceConnection()));
 	}
 
 	/**

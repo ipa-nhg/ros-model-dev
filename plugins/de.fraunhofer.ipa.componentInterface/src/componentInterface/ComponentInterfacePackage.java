@@ -8,8 +8,6 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
-import ros.RosPackage;
-
 /**
  * <!-- begin-user-doc -->
  * The <b>Package</b> for the model.
@@ -70,31 +68,13 @@ public interface ComponentInterfacePackage extends EPackage {
 	int COMPONENT_INTERFACE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_INTERFACE__NAMESPACE = RosPackage.NAMESPACED_ELEMENT__NAMESPACE;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_INTERFACE__NAME = RosPackage.NAMESPACED_ELEMENT__NAME;
-
-	/**
 	 * The feature id for the '<em><b>Rospublisher</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_INTERFACE__ROSPUBLISHER = RosPackage.NAMESPACED_ELEMENT_FEATURE_COUNT + 0;
+	int COMPONENT_INTERFACE__ROSPUBLISHER = 0;
 
 	/**
 	 * The feature id for the '<em><b>Rossubscriber</b></em>' containment reference list.
@@ -103,7 +83,7 @@ public interface ComponentInterfacePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_INTERFACE__ROSSUBSCRIBER = RosPackage.NAMESPACED_ELEMENT_FEATURE_COUNT + 1;
+	int COMPONENT_INTERFACE__ROSSUBSCRIBER = 1;
 
 	/**
 	 * The feature id for the '<em><b>Rosserviceserver</b></em>' containment reference list.
@@ -112,7 +92,7 @@ public interface ComponentInterfacePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_INTERFACE__ROSSERVICESERVER = RosPackage.NAMESPACED_ELEMENT_FEATURE_COUNT + 2;
+	int COMPONENT_INTERFACE__ROSSERVICESERVER = 2;
 
 	/**
 	 * The feature id for the '<em><b>Rosserviceclient</b></em>' containment reference list.
@@ -121,7 +101,16 @@ public interface ComponentInterfacePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_INTERFACE__ROSSERVICECLIENT = RosPackage.NAMESPACED_ELEMENT_FEATURE_COUNT + 3;
+	int COMPONENT_INTERFACE__ROSSERVICECLIENT = 3;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_INTERFACE__NAME = 4;
 
 	/**
 	 * The number of structural features of the '<em>Component Interface</em>' class.
@@ -130,7 +119,7 @@ public interface ComponentInterfacePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_INTERFACE_FEATURE_COUNT = RosPackage.NAMESPACED_ELEMENT_FEATURE_COUNT + 4;
+	int COMPONENT_INTERFACE_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Component Interface</em>' class.
@@ -139,7 +128,7 @@ public interface ComponentInterfacePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_INTERFACE_OPERATION_COUNT = RosPackage.NAMESPACED_ELEMENT_OPERATION_COUNT + 0;
+	int COMPONENT_INTERFACE_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link componentInterface.impl.RosPublisherImpl <em>Ros Publisher</em>}' class.
@@ -427,6 +416,17 @@ public interface ComponentInterfacePackage extends EPackage {
 	EReference getComponentInterface_Rosserviceclient();
 
 	/**
+	 * Returns the meta object for the attribute '{@link componentInterface.ComponentInterface#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see componentInterface.ComponentInterface#getName()
+	 * @see #getComponentInterface()
+	 * @generated
+	 */
+	EAttribute getComponentInterface_Name();
+
+	/**
 	 * Returns the meta object for class '{@link componentInterface.RosPublisher <em>Ros Publisher</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -673,6 +673,14 @@ public interface ComponentInterfacePackage extends EPackage {
 		 * @generated
 		 */
 		EReference COMPONENT_INTERFACE__ROSSERVICECLIENT = eINSTANCE.getComponentInterface_Rosserviceclient();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPONENT_INTERFACE__NAME = eINSTANCE.getComponentInterface_Name();
 
 		/**
 		 * The meta object literal for the '{@link componentInterface.impl.RosPublisherImpl <em>Ros Publisher</em>}' class.

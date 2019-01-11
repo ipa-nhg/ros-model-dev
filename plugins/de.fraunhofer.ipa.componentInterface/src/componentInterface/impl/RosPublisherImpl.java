@@ -168,58 +168,22 @@ public class RosPublisherImpl extends MinimalEObjectImpl.Container implements Ro
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentInterfacePackage.ROS_PUBLISHER__NAME, oldName, name));
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public String getComponentNs() {
-		String component_ns = null;
-		String ComponentInterface_toString = eContainer().eContents().toString();
-		if (ComponentInterface_toString.contains("parts") && ComponentInterface_toString.contains("componentInterface")) {
-			component_ns=ComponentInterface_toString.substring(ComponentInterface_toString.indexOf("parts: [", 1) + 8, ComponentInterface_toString.indexOf("]"));
-			if (component_ns.length()>0) {
-				return component_ns;
-			}else {
-				return NS_EDEFAULT;
-			}
-		}else {
-			return NS_EDEFAULT;
-		}
-		
-	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public void setDefaultValues() {
-		NS_EDEFAULT = getComponentNs();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public String getNs() {
-		setDefaultValues();
-		if (ns.isEmpty()) {
-			ns = NS_EDEFAULT;
-			return NS_EDEFAULT;
-		}else {
-			return ns;
-		}
+		return ns;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public void setNs(String newNs) {
-		setDefaultValues();
 		String oldNs = ns;
 		ns = newNs;
 		if (eNotificationRequired())

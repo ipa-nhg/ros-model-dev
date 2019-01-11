@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="componentInterface" nsURI="http://www.example.org/componentInterface"
     nsPrefix="componentInterface">
-  <eClassifiers xsi:type="ecore:EClass" name="ComponentInterface" eSuperTypes="../../de.fraunhofer.ipa.ros/model/ros.ecore#//NamespacedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentInterface">
     <eStructuralFeatures xsi:type="ecore:EReference" name="rospublisher" upperBound="-1"
         eType="#//RosPublisher" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rossubscriber" upperBound="-1"
@@ -11,6 +11,7 @@
         eType="#//RosServiceServer" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rosserviceclient" upperBound="-1"
         eType="#//RosServiceClient" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RosPublisher">
     <eStructuralFeatures xsi:type="ecore:EReference" name="publisher" eType="ecore:EClass ../../de.fraunhofer.ipa.ros/model/ros.ecore#//Publisher"/>

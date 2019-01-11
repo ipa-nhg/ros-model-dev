@@ -183,6 +183,15 @@ public class ComponentInterfacePackageImpl extends EPackageImpl implements Compo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getComponentInterface_Name() {
+		return (EAttribute)componentInterfaceEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getRosPublisher() {
 		return rosPublisherEClass;
 	}
@@ -364,6 +373,7 @@ public class ComponentInterfacePackageImpl extends EPackageImpl implements Compo
 		createEReference(componentInterfaceEClass, COMPONENT_INTERFACE__ROSSUBSCRIBER);
 		createEReference(componentInterfaceEClass, COMPONENT_INTERFACE__ROSSERVICESERVER);
 		createEReference(componentInterfaceEClass, COMPONENT_INTERFACE__ROSSERVICECLIENT);
+		createEAttribute(componentInterfaceEClass, COMPONENT_INTERFACE__NAME);
 
 		rosPublisherEClass = createEClass(ROS_PUBLISHER);
 		createEReference(rosPublisherEClass, ROS_PUBLISHER__PUBLISHER);
@@ -420,7 +430,6 @@ public class ComponentInterfacePackageImpl extends EPackageImpl implements Compo
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		componentInterfaceEClass.getESuperTypes().add(theRosPackage.getNamespacedElement());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(componentInterfaceEClass, ComponentInterface.class, "ComponentInterface", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -428,6 +437,7 @@ public class ComponentInterfacePackageImpl extends EPackageImpl implements Compo
 		initEReference(getComponentInterface_Rossubscriber(), this.getRosSubscriber(), null, "rossubscriber", null, 0, -1, ComponentInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponentInterface_Rosserviceserver(), this.getRosServiceServer(), null, "rosserviceserver", null, 0, -1, ComponentInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponentInterface_Rosserviceclient(), this.getRosServiceClient(), null, "rosserviceclient", null, 0, -1, ComponentInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComponentInterface_Name(), ecorePackage.getEString(), "name", null, 0, 1, ComponentInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(rosPublisherEClass, RosPublisher.class, "RosPublisher", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRosPublisher_Publisher(), theRosPackage.getPublisher(), null, "publisher", null, 0, 1, RosPublisher.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

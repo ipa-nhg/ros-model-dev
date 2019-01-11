@@ -4,7 +4,7 @@ package componentInterface;
 
 import org.eclipse.emf.common.util.EList;
 
-import ros.NamespacedElement;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,13 +19,14 @@ import ros.NamespacedElement;
  *   <li>{@link componentInterface.ComponentInterface#getRossubscriber <em>Rossubscriber</em>}</li>
  *   <li>{@link componentInterface.ComponentInterface#getRosserviceserver <em>Rosserviceserver</em>}</li>
  *   <li>{@link componentInterface.ComponentInterface#getRosserviceclient <em>Rosserviceclient</em>}</li>
+ *   <li>{@link componentInterface.ComponentInterface#getName <em>Name</em>}</li>
  * </ul>
  *
  * @see componentInterface.ComponentInterfacePackage#getComponentInterface()
  * @model
  * @generated
  */
-public interface ComponentInterface extends NamespacedElement {
+public interface ComponentInterface extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Rospublisher</b></em>' containment reference list.
 	 * The list contents are of type {@link componentInterface.RosPublisher}.
@@ -89,5 +90,31 @@ public interface ComponentInterface extends NamespacedElement {
 	 * @generated
 	 */
 	EList<RosServiceClient> getRosserviceclient();
+
+	/**
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see componentInterface.ComponentInterfacePackage#getComponentInterface_Name()
+	 * @model
+	 * @generated
+	 */
+	String getName();
+
+	/**
+	 * Sets the value of the '{@link componentInterface.ComponentInterface#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
+	 * @generated
+	 */
+	void setName(String value);
 
 } // ComponentInterface
