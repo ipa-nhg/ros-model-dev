@@ -1,0 +1,2 @@
+RosSystem { Name 'My'  Components {  RosComponent 'sick_s300' ,  RosComponent 'diagnostics' }
+}

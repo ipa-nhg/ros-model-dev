@@ -1,0 +1,5 @@
+ComponentInterface { name 'sick_s300' 
+    RosPublishers{
+        RosPublisher '/scan' { RefPublisher 'cob_sick_s300.cob_sick_s300.cob_sick_s300.scan'},
+        RosPublisher '/diagnostics' { RefPublisher 'cob_sick_s300.cob_sick_s300.cob_sick_s300./diagnostics'}}
+}
