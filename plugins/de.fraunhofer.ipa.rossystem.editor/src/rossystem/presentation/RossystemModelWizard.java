@@ -240,15 +240,15 @@ public class RossystemModelWizard extends Wizard implements INewWizard {
 				
 								if ( components.size() > 0) {
 									int cout_components = components.size();
-									model_output.append(" RosComponents ( ");
+									model_output.append(" Components { ");
 									for (String component_name:components) {
 										cout_components--;
-										model_output.append(component_name+" ");
+										model_output.append(" RosComponent "+component_name+" ");
 										if (cout_components > 0) {
 											model_output.append(", ");
 										}
 									}
-									model_output.append(")");
+									model_output.append("}");
 								}
 							
 							model_output.append("\n}");
