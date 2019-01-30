@@ -3,34 +3,47 @@
  */
 package de.fraunhofer.ipa.rossystem.formatting2
 
-import com.google.inject.Inject
-import de.fraunhofer.ipa.rossystem.services.RosSystemGrammarAccess
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import rossystem.RosSystem
 import rossystem.ServiceConnection
 import rossystem.TopicConnection
-import ros.Publisher
-import componentInterface.RosPublisher
+import de.fraunhofer.ipa.rossystem.services.RosSystemGrammarAccess
+import javax.inject.Inject
+
+/*class RosSystemFormatter extends AbstractFormatter2 {
+	
+	def dispatch void format(RosSystem rosSystem, extension IFormattableDocument document) {
+		for (TopicConnection topicConnection : rosSystem.getTopicConnections()) {
+			for (pub:topicConnection.from){
+				for (sub:topicConnection.to){
+					if( pub.publisher.message.name.equalsIgnoreCase(sub.subscriber.message.name)){
+						topicConnection.format;
+				}
+			}
+		}}
+		for (ServiceConnection serviceConnection : rosSystem.getServiceConnections()) {
+			for (svrser:serviceConnection.from){
+				if(svrser.srvserver.service.name.equalsIgnoreCase(serviceConnection.to.srvclient.service.name)){
+						serviceConnection.format;
+				}
+			}
+	}}
+}*/
 
 class RosSystemFormatter extends AbstractFormatter2 {
 	
 	@Inject extension RosSystemGrammarAccess
 
 	def dispatch void format(RosSystem rosSystem, extension IFormattableDocument document) {
+		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
 		for (TopicConnection topicConnection : rosSystem.getTopicConnections()) {
-			if( topicConnection.fromTopic.name.equalsIgnoreCase(topicConnection.toTopic.name)){
-					topicConnection.format;
-				
-			}
-			if( topicConnection.fromTopic.publisher.message.name.equalsIgnoreCase(topicConnection.toTopic.subscriber.message.name)){
-			}
-				topicConnection.format;
+			topicConnection.format;
 		}
 		for (ServiceConnection serviceConnection : rosSystem.getServiceConnections()) {
 			serviceConnection.format;
 		}
 	}
 	
+	// TODO: implement for 
 }
-

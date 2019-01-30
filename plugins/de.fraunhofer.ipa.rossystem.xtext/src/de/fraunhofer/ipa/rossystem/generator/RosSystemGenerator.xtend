@@ -4,6 +4,10 @@
 package de.fraunhofer.ipa.rossystem.generator
 
 import componentInterface.ComponentInterface
+import componentInterface.RosPublisher
+import componentInterface.RosServiceClient
+import componentInterface.RosServiceServer
+import componentInterface.RosSubscriber
 import java.util.ArrayList
 import java.util.List
 import java.util.Set
@@ -13,16 +17,11 @@ import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import org.eclipse.xtext.generator.IOutputConfigurationProvider
 import org.eclipse.xtext.generator.OutputConfiguration
-import ros.Namespace
 import ros.Publisher
 import ros.ServiceClient
 import ros.ServiceServer
 import ros.Subscriber
 import rossystem.RosSystem
-import componentInterface.RosPublisher
-import componentInterface.RosSubscriber
-import componentInterface.RosServiceServer
-import componentInterface.RosServiceClient
 
 class CustomOutputProvider implements IOutputConfigurationProvider {
 	public final static String CM_CONFIGURATION = "CM_CONFIGURATION"
@@ -41,7 +40,7 @@ class CustomOutputProvider implements IOutputConfigurationProvider {
 		default_config.setDescription("DEFAULT_OUTPUT");
 		default_config.setOutputDirectory("./src-gen/");
 		default_config.setOverrideExistingResources(true);
-		default_config.setCreateOutputDirectory(false);
+		default_config.setCreateOutputDirectory(true);
 		default_config.setCleanUpDerivedResources(false);
 		default_config.setSetDerivedProperty(false);
 		return newHashSet(cm_config, default_config)
@@ -91,62 +90,86 @@ class RosSystemGenerator extends AbstractGenerator {
 <?xml version="1.0"?>
 <launch>
 	«FOR component:system.rosComponent»
-	<node pkg="«component.compile_pkg»" type="«component.compile_art»«init()»" name="«IF component.hasNS»«component.get_ns»_«ENDIF»«component.compile_art»"«IF component.hasNS» ns="«component.get_ns»"«ENDIF» cwd="node" respawn="false" output="screen">«init()»
+	<node pkg="«component.compile_pkg»" type="«component.compile_art»«init()»" name="«component.name»"«IF component.hasNS» ns="«component.get_ns»"«ENDIF» cwd="node" respawn="false" output="screen">«init()»
 		«FOR rosPublisher:component.rospublisher»
-			«IF component.hasNS»
+			«FOR topicConnection:system.topicConnections»
+				«IF topicConnection.from.contains(rosPublisher)»
+					«IF !topicConnection.topicName.equals(rosPublisher.name)»
+					<remap from="«rosPublisher.publisher.compile_topic_name()»" to="«topicConnection.topicName»" />
+				«ELSEIF component.hasNS»
 				«IF rosPublisher.name.contains(component.get_ns)»
 				«ELSEIF rosPublisher.name.equals(rosPublisher.publisher.compile_topic_name()) »
 				«ELSEIF !rosPublisher.name.contains(component.get_ns)»
-				<remap from="«rosPublisher.publisher.compile_topic_name()»" to="«rosPublisher.name»" />
+					<remap from="«rosPublisher.publisher.compile_topic_name()»" to="«rosPublisher.name»" />
 				«ELSEIF !rosPublisher.name.equals(rosPublisher.publisher.compile_topic_name()) »
-				<remap from="«rosPublisher.publisher.compile_topic_name()»" to="«rosPublisher.name»" />
+					<remap from="«rosPublisher.publisher.compile_topic_name()»" to="«rosPublisher.name»" />
 				«ENDIF»
 			«ELSEIF rosPublisher.name.equals(rosPublisher.publisher.compile_topic_name()) »
 			«ELSEIF !rosPublisher.name.equals(rosPublisher.publisher.compile_topic_name()) »
-			<remap from="«rosPublisher.publisher.compile_topic_name()»" to="«rosPublisher.name»" />
+					<remap from="«rosPublisher.publisher.compile_topic_name()»" to="«rosPublisher.name»" />
 			«ENDIF»
+		«ENDIF»
+		«ENDFOR»
 		«ENDFOR»
 		«FOR rosSubscriber:component.rossubscriber»
-			«IF component.hasNS»
+			«FOR topicConnection:system.topicConnections»
+				«IF topicConnection.to.contains(rosSubscriber)»
+					«IF !topicConnection.topicName.equals(rosSubscriber.name)»
+					<remap from="«rosSubscriber.subscriber.compile_topic_name()»" to="«topicConnection.topicName»" />
+			«ELSEIF component.hasNS»
 				«IF rosSubscriber.name.contains(component.get_ns)»
 				«ELSEIF rosSubscriber.name.equals(rosSubscriber.subscriber.compile_topic_name()) »
 				«ELSEIF !rosSubscriber.name.contains(component.get_ns)»
-				<remap from="«rosSubscriber.subscriber.compile_topic_name()»" to="«rosSubscriber.name»" />
+					<remap from="«rosSubscriber.subscriber.compile_topic_name()»" to="«rosSubscriber.name»" />
 				«ELSEIF !rosSubscriber.name.equals(rosSubscriber.subscriber.compile_topic_name()) »
 				<remap from="«rosSubscriber.subscriber.compile_topic_name()»" to="«rosSubscriber.name»" />
 				«ENDIF»
 			«ELSEIF rosSubscriber.name.equals(rosSubscriber.subscriber.compile_topic_name()) »
 			«ELSEIF !rosSubscriber.name.equals(rosSubscriber.subscriber.compile_topic_name()) »
-			<remap from="«rosSubscriber.subscriber.compile_topic_name()»" to="«rosSubscriber.name»" />
+					<remap from="«rosSubscriber.subscriber.compile_topic_name()»" to="«rosSubscriber.name»" />
 			«ENDIF»
+		«ENDIF»
+		«ENDFOR»
 		«ENDFOR»
 		«FOR rosServiceServer:component.rosserviceserver»
-			«IF component.hasNS»
+			«FOR serviceConnection:system.serviceConnections»
+				«IF serviceConnection.from.contains(rosServiceServer)»
+					«IF !serviceConnection.serviceName.equals(rosServiceServer.name)»
+					<remap from="«rosServiceServer.srvserver.compile_service_name()»" to="«serviceConnection.serviceName»" />
+			«ELSEIF component.hasNS»
 				«IF rosServiceServer.name.contains(component.get_ns)»
 				«ELSEIF rosServiceServer.name.equals(rosServiceServer.srvserver.compile_service_name()) »
 				«ELSEIF !rosServiceServer.name.contains(component.get_ns)»
-				<remap from="«rosServiceServer.srvserver.compile_service_name()»" to="«rosServiceServer.name»" />
+					<remap from="«rosServiceServer.srvserver.compile_service_name()»" to="«rosServiceServer.name»" />
 				«ELSEIF !rosServiceServer.name.equals(rosServiceServer.srvserver.compile_service_name()) »
 				<remap from="«rosServiceServer.srvserver.compile_service_name()»" to="«rosServiceServer.name»" />
 				«ENDIF»
 			«ELSEIF rosServiceServer.name.equals(rosServiceServer.srvserver.compile_service_name()) »
 			«ELSEIF !rosServiceServer.name.equals(rosServiceServer.srvserver.compile_service_name()) »
-			<remap from="«rosServiceServer.srvserver.compile_service_name()»" to="«rosServiceServer.name»" />
+					<remap from="«rosServiceServer.srvserver.compile_service_name()»" to="«rosServiceServer.name»" />
 			«ENDIF»
+		«ENDIF»
+		«ENDFOR»
 		«ENDFOR»
 		«FOR rosServiceClient:component.rosserviceclient»
-			«IF component.hasNS»
+			«FOR serviceConnection:system.serviceConnections»
+				«IF serviceConnection.to.equals(rosServiceClient)»
+					«IF !serviceConnection.serviceName.equals(rosServiceClient.name)»
+					<remap from="«rosServiceClient.srvclient.compile_service_name()»" to="«serviceConnection.serviceName»" />
+			«ELSEIF component.hasNS»
 				«IF rosServiceClient.name.contains(component.get_ns)»
 				«ELSEIF rosServiceClient.name.equals(rosServiceClient.srvclient.compile_service_name()) »
 				«ELSEIF !rosServiceClient.name.contains(component.get_ns)»
-				<remap from="«rosServiceClient.srvclient.compile_service_name()»" to="«rosServiceClient.name»" />
+					<remap from="«rosServiceClient.srvclient.compile_service_name()»" to="«rosServiceClient.name»" />
 				«ELSEIF !rosServiceClient.name.equals(rosServiceClient.srvclient.compile_service_name()) »
 				<remap from="«rosServiceClient.srvclient.compile_service_name()»" to="«rosServiceClient.name»" />
 				«ENDIF»
 			«ELSEIF rosServiceClient.name.equals(rosServiceClient.srvclient.compile_service_name()) »
 			«ELSEIF !rosServiceClient.name.equals(rosServiceClient.srvclient.compile_service_name()) »
-			<remap from="«rosServiceClient.srvclient.compile_service_name()»" to="«rosServiceClient.name»" />
+					<remap from="«rosServiceClient.srvclient.compile_service_name()»" to="«rosServiceClient.name»" />
 			«ENDIF»
+			«ENDIF»
+			«ENDFOR»
 			«ENDFOR»
 	</node>
 	«ENDFOR»
@@ -202,15 +225,15 @@ RosSubscribers{
 RosSrvServers{
 	«FOR svrs:svrs»
 	«val count_srvs=count_srvs--»
-	RosSrvServer "«svrs.name»" { Refsrvserver "«svrs.srvserver.package_srvserv».«svrs.srvserver.artifact_srvserv».«svrs.srvserver.node_srvserv».«svrs.srvserver.compile_service_name»"}«IF count_srvs > 1 »,«ENDIF»
+	RosServiceServer "«svrs.name»" { RefServer "«svrs.srvserver.package_srvserv».«svrs.srvserver.artifact_srvserv».«svrs.srvserver.node_srvserv».«svrs.srvserver.compile_service_name»"}«IF count_srvs > 1 »,«ENDIF»
 	«ENDFOR»
 	}
 «ENDIF»
 «IF !svrc.empty»
 RosSrvClients{
 	«FOR svrc:svrc»
-	«val count_srvs=count_srvs--»
-	RosSrvClient "«svrc.name»" { Refsrvclient "«svrc.srvclient.package_srvcli».«svrc.srvclient.artifact_srvcli».«svrc.srvclient.node_srvcli».«svrc.srvclient.compile_service_name»"}«IF count_srvs > 1 »,«ENDIF»
+	«val count_srvc=count_srvc--»
+	RosServiceClient "«svrc.name»" { RefClient "«svrc.srvclient.package_srvcli».«svrc.srvclient.artifact_srvcli».«svrc.srvclient.node_srvcli».«svrc.srvclient.compile_service_name»"}«IF count_srvc > 1 »,«ENDIF»
 	«ENDFOR»
 	}
 «ENDIF»
@@ -221,14 +244,14 @@ RosSrvClients{
 
 
 def boolean hasNS(ComponentInterface component){
-	if(!component.eAllContents.toIterable.filter(Namespace).empty){
+	if(!component.nameSpace.nullOrEmpty){
 		return true;
 	}else{
 		return false
 	}
 }
 def String get_ns(ComponentInterface component){
-	return component.namespace.parts.get(0).replaceFirst("/","");
+	return component.nameSpace.replaceFirst("/","");
 }
 
 def compile_pkg(ComponentInterface component) 
@@ -290,19 +313,19 @@ def compile_pkg(ComponentInterface component)
 	}
 	def getNode_sub(Subscriber subscriber){
 		node_impl = subscriber.eContainer.toString;
-		return node_impl.getArtifact;
+		return node_impl.getNode;
 	}
 	def getNode_srvserv(ServiceServer serviceserver){
 		node_impl = serviceserver.eContainer.toString;
-		return node_impl.getArtifact;
+		return node_impl.getNode;
 	}
 	def getNode_srvcli(ServiceClient serviceclient){
 		node_impl = serviceclient.eContainer.toString;
-		return node_impl.getArtifact;
+		return node_impl.getNode;
 	}
 	def getNode(String node_impl){
 		node_name = node_impl.substring(node_impl.indexOf("name")+6,node_impl.length-1)
-		return artifact_name;
+		return node_name;
 	}
 
 	def compile_topic_name(Publisher publisher){

@@ -2,6 +2,7 @@
  */
 package componentInterface.impl;
 
+import componentInterface.ComponentInterface;
 import componentInterface.ComponentInterfacePackage;
 import componentInterface.RosServiceClient;
 
@@ -140,7 +141,7 @@ public class RosServiceClientImpl extends MinimalEObjectImpl.Container implement
 	 * @generated NOT
 	 */
 	public String getName() {
-		if (name!=null) {
+		/**if (name!=null) {
 			if (name.length()>0) {
 				return name;
 			}if (ns != null && srvclient != null) {
@@ -153,7 +154,8 @@ public class RosServiceClientImpl extends MinimalEObjectImpl.Container implement
 			}
 		}else {
 			return name;
-		}
+		}*/
+		return name;
 	}
 
 	/**
@@ -174,19 +176,13 @@ public class RosServiceClientImpl extends MinimalEObjectImpl.Container implement
 	 * @generated NOT
 	 */
 	public String getComponentNs() {
-		String component_ns = null;
-		String ComponentInterface_toString = eContainer().eContents().toString();
-		if (ComponentInterface_toString.contains("parts") && ComponentInterface_toString.contains("componentInterface")) {
-			component_ns=ComponentInterface_toString.substring(ComponentInterface_toString.indexOf("parts: [", 1) + 8, ComponentInterface_toString.indexOf("]"));
-			if (component_ns.length()>0) {
-				return component_ns;
-			}else {
-				return NS_EDEFAULT;
-			}
+		ComponentInterface component = (ComponentInterface) srvclient.eContainer();
+		String component_ns = component.getNameSpace();
+		if (component_ns.length()>0) {
+			return component_ns;
 		}else {
 			return NS_EDEFAULT;
 		}
-		
 	}
 
 	/**
@@ -204,13 +200,14 @@ public class RosServiceClientImpl extends MinimalEObjectImpl.Container implement
 	 * @generated NOT
 	 */
 	public String getNs() {
-		setDefaultValues();
+		/**setDefaultValues();
 		if (ns.isEmpty()) {
 			ns = NS_EDEFAULT;
 			return NS_EDEFAULT;
 		}else {
 			return ns;
-		}
+		}*/
+		return ns;
 	}
 
 	/**
@@ -219,7 +216,7 @@ public class RosServiceClientImpl extends MinimalEObjectImpl.Container implement
 	 * @generated NOT
 	 */
 	public void setNs(String newNs) {
-		setDefaultValues();
+		/*setDefaultValues();*/
 		String oldNs = ns;
 		ns = newNs;
 		if (eNotificationRequired())

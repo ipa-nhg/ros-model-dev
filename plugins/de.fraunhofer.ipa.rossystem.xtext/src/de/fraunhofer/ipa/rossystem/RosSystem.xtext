@@ -10,26 +10,88 @@ RosSystem returns RosSystem:
 	{RosSystem}
 	'RosSystem'
 	'{'
-		('Name' Name=EString)?
-		('RosComponents' '(' RosComponent+=[componentInterface::ComponentInterface|EString] ( "," RosComponent+=[componentInterface::ComponentInterface|EString])* ')' )?
-		('TopicConnections' '{' TopicConnections+=TopicConnection ( "," TopicConnections+=TopicConnection)* '}' )?
-		('ServiceConnections' '{' ServiceConnections+=ServiceConnection ( "," ServiceConnections+=ServiceConnection)* '}' )?
+		'Name' Name=EString
+		('RosComponents' '(' (RosComponent+=ComponentInterface ( "," RosComponent+=ComponentInterface)*)? ')' )?
+		('TopicConnections' '{' (TopicConnections+=TopicConnection ( "," TopicConnections+=TopicConnection)*)? '}' )?
+		('ServiceConnections' '{' (ServiceConnections+=ServiceConnection ( "," ServiceConnections+=ServiceConnection)*)? '}' )?
 	'}';
 
 TopicConnection returns TopicConnection:
 	'TopicConnection'
+	TopicName=EString
 	'{'
-		'FromTopic' FromTopic=[componentInterface::RosPublisher|EString]
-		'ToTopic' ToTopic=[componentInterface::RosSubscriber|EString]
+		'From' '(' From+=[componentInterface::RosPublisher|EString] (',' From+=[componentInterface::RosPublisher|EString])* ')'
+		'To' '(' To+=[componentInterface::RosSubscriber|EString] ( ',' To+=[componentInterface::RosSubscriber|EString])* ')'
+
 	'}';
 
 ServiceConnection returns ServiceConnection:
 	'ServiceConnection'
+	ServiceName=EString
 	'{'
-		'FromSrv' FromSrv=[componentInterface::RosServiceServer|EString]
-		'ToSrv' ToSrv=[componentInterface::RosServiceClient|EString]
+		'From' '(' From+=[componentInterface::RosServiceServer|EString] (',' From+=[componentInterface::RosServiceServer|EString])* ')'
+		'To' To=[componentInterface::RosServiceClient|EString] 
 	'}';
+
+
 
 EString returns ecore::EString:
 	STRING | ID;
+
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ComponentInterface returns componentInterface::ComponentInterface:
+	'ComponentInterface'
+	'{'
+		'name' name=EString
+		('NameSpace' NameSpace=EString)?
+		('RosPublishers' '{' rospublisher+=RosPublisher ( "," rospublisher+=RosPublisher)* '}' )?
+		('RosSubscribers' '{' rossubscriber+=RosSubscriber ( "," rossubscriber+=RosSubscriber)* '}' )?
+		('RosSrvServers' '{' rosserviceserver+=RosServiceServer ( "," rosserviceserver+=RosServiceServer)* '}' )?
+		('RosSrvClients' '{' rosserviceclient+=RosServiceClient ( "," rosserviceclient+=RosServiceClient)* '}' )?
+	'}';
+
+Namespace returns ecore::EString:
+	STRING;
+
+
+
+RosPublisher returns componentInterface::RosPublisher:
+	{componentInterface::RosPublisher}
+	'RosPublisher'
+	(name=EString)?
+	'{'
+		('ns' ns=EString)?
+		'RefPublisher' publisher=[ros::Publisher|EString]
+	'}';
+
+RosSubscriber returns componentInterface::RosSubscriber:
+	{componentInterface::RosSubscriber}
+	'RosSubscriber'
+	(name=EString)?
+	'{'
+		('ns' ns=EString)?
+		'RefSubscriber' subscriber=[ros::Subscriber|EString]
+	'}';
+
+RosServiceServer returns componentInterface::RosServiceServer:
+	{componentInterface::RosServiceServer}
+	'RosServiceServer'
+	(name=EString)?
+	'{'
+		('ns' ns=EString)?
+		'RefServer' srvserver=[ros::ServiceServer|EString]
+	'}';
+
+RosServiceClient returns componentInterface::RosServiceClient:
+	{componentInterface::RosServiceClient}
+	'RosServiceClient'
+	(name=EString)?
+	'{'
+		('ns' ns=EString)?
+		'RefClient' srvclient=[ros::ServiceClient|EString]
+	'}';
+
+ 
 
